@@ -1,0 +1,29 @@
+package com.baoguan.biz.ytg.entity;/**
+ * Function: <br/>
+ * REASON: <br/>
+ * VERSION: 4.0
+ *
+ * @Auther: zhangyang
+ * @Date: 2019/3/4.
+ */
+
+/**
+ * File Name:YiWTBiz  
+ * @Description TODO
+ * Date:2019/3/4 17:15  
+ * @author zhangyang
+ * @Version 4.0
+ * Copyright (c) 2019,  All Rights Reserved.  
+ */
+public class YiWTBiz {
+
+
+    public void getBoatByName(String name,String agentid){
+        String url = "http://120.76.198.92:8988/mf/ship/search_ship.action?agentid=941&selectType=null";
+
+
+
+    }
+
+
+}
