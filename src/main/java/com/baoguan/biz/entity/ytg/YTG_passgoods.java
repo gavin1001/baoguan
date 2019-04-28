@@ -1,6 +1,8 @@
-package com.baoguan.biz.entity;
+package com.baoguan.biz.entity.ytg;
 
 import java.util.List;
+
+import com.baoguan.biz.entity.Goods;
 
 public class YTG_passgoods {
     private String countryNAme;

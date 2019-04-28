@@ -1,4 +1,4 @@
-package com.baoguan.biz.entity;/**
+package com.baoguan.biz.entity.ytg;/**
  * Function: <br/>
  * REASON: <br/>
  * VERSION: 4.0
