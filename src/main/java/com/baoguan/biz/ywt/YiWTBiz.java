@@ -7,12 +7,17 @@ package com.baoguan.biz.ywt;/**
  * @Date: 2019/3/4.
  */
 
-import com.baoguan.tools.DateUtils;
-import com.baoguan.tools.HttpTransfer;
-
+import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
+import com.baoguan.biz.entity.ywt.*;
+import com.baoguan.tools.DateUtils;
+import com.baoguan.tools.HttpTransfer;
+import com.baoguan.tools.JsonUtils;
 
 /**
  * File Name:易网通
@@ -24,6 +29,13 @@ import java.util.Map;
  */
 public class YiWTBiz {
 
+    public static final String str_null = "NULL:NULL";
+    public static String str_str = "string:";
+    public static String str_number = "number:";
+    public int index = 0;
+    private StringBuffer sb = new StringBuffer();
+    private Map<String,Integer> resultDataMap = new HashMap<>();
+    private static final String SEINDEX = "c0-e";
 
     private Map<String,String> getHeader(){
         Map<String,String> headerMap = new HashMap<>();
@@ -68,11 +80,69 @@ public class YiWTBiz {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalAccessException {
         YiWTBiz y = new YiWTBiz();
-        y.getBoatByName("","","");
+//        y.getBoatByName("","","");
+    	
+    	Ywt_Consignment yi = new Ywt_Consignment();
+    	String s = JsonUtils.OjectToJson(yi);
+//    	System.out.println(s);
+        y.reflush(yi);
+    }
+
+    
+    //获取model的值并进行字符串拼接
+    public void reflush(Ywt_Consignment yi) throws IllegalArgumentException, IllegalAccessException{
+    	List<Ywt_ConsignmentItem> conList = yi.getConsignmentItemList();
+    	Ywt_PersonInfo consPerson = yi.getConsignee();
+    	List<Ywt_ContaInfo> contaList = yi.getContaInfoList();
+    	Ywt_PersonInfo conorPerson = yi.getConsignor();
+        yi.setConsolidatorId("afadsdfasdf");
+        yi.setIsAuto(33);
+        //c0-e1=string:001
+
+        Field[] field = yi.getClass().getDeclaredFields();
+        for(Field f :field){
+            f.setAccessible(true);
+            System.out.println(f.getType().getSimpleName()+"   "+f.getName());
+//            sb.append(SEINDEX).append(index).append("=").append(str_str).append(f.get(yi)).append("\n");
+            spllDate(f.getType().getSimpleName(), f.get(yi));
+
+            resultDataMap.put(f.getName(), index);
+            index++;
+        }
+        System.out.println(sb.toString());
+
+        for(Map.Entry<String, Integer> s:resultDataMap.entrySet()){
+            System.out.println(s.getKey()+"   "+s.getValue());
+        }
 
     }
 
+    private void spllDate(String type,Object value){
+        if(value==null){
+            sb.append(SEINDEX).append(index).append("=").append(str_null).append("\n");
+        }else if(Objects.equals(type, "String")){
+            sb.append(SEINDEX).append(index).append("=").append(str_str).append(value).append("\n");
+    	}else if(Objects.equals(type, "int")){
+            sb.append(SEINDEX).append(index).append("=").append(str_number).append(value).append("\n");
+        }else if(Objects.equals(type, "List")){
+
+        }else if(Objects.equals(type, "Ywt_BorderTransportMeans")){
+
+        }else if(Objects.equals(type, "Ywt_PersonInfo")){
+
+        }else if(Objects.equals(type, "Ywt_BorderTransportMeans")){
+
+        }else if(Objects.equals(type, "Ywt_BorderTransportMeans")){
+
+        }
+
+    }
+
+    public void reflushPerson(Ywt_PersonInfo p){
+        List<Ywt_Communication> commList =  p.getCommunicationList();
+        Ywt_Address add = p.getAddress();
+    }
 
 }

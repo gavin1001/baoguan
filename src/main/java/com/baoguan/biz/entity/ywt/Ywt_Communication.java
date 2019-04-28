@@ -13,9 +13,34 @@ package com.baoguan.biz.entity.ywt;
 public class Ywt_Communication {
 
 	
-	private String id;
-	private String personId;
+	private int id;
+	private int personId;
 	private String code;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getPersonId() {
+		return personId;
+	}
+	public void setPersonId(int personId) {
+		this.personId = personId;
+	}
 	private String typeId;
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public String getTypeId() {
+		return typeId;
+	}
+	public void setTypeId(String typeId) {
+		this.typeId = typeId;
+	}
+	
 	
 }
